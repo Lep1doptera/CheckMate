@@ -326,7 +326,7 @@ DEPENDENCIES
   bootstrap (~> 5.3)
   capybara
   debug
-  devise
+  devise (~> 4.9)
   dotenv-rails
   font-awesome-sass (~> 6.1)
   importmap-rails
