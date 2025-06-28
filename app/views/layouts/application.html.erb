@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>CheckMate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,20 +12,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-     <body>
-    <div>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Top Nav -->
     <nav class="bg-blue-600 text-white px-5 py-3 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold">
-        ChoreMate
-      </a>
+      <a href="/" class="text-2xl font-bold">CheckMate</a>
+    </nav>
 
-      <div class="space-x-4 hidden md:flex">
-        <a href="/users/sign_in" class="bg-white text-blue-700 font-semibold px-4 py-1 rounded hover:bg-gray-100">
-          Login
-        </a>
-      </div>
+    <div class="flex">
+      <% if user_signed_in? %>
+        <!-- Side menu -->
+        <aside class="w-64 bg-white shadow h-screen p-5">
+          <nav class="space-y-6 text-blue-700">
+            <div class="flex flex-col items-center gap-3">
+              <%= image_tag "avatar.jpeg", alt: "User Avatar", class: "w-16 h-16 rounded-full object-cover" %>
+              <div class="w-full text-lg font-semibold text-center">
+                Welcome <%= current_user.name %>
+              </div>
+            </div>
+
+    <% if current_user.household %>
+      <%= link_to "🏡 Household", dashboard_path, class: "block hover:underline" %>
+    <% end %>
+
+    <%= link_to "👤 My Profile", edit_user_registration_path, class: "block hover:underline" %>
+
+    <%= link_to "🚪 Logout", destroy_user_session_path, method: :delete, class: "block hover:underline text-red-600" %>
+    </nav>
+    </aside>
+      <% end %>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6">
+        <%= yield %>
+      </main>
     </div>
-
-    <%= yield %>
-    </body>
+  </body>
 </html>
