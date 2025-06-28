@@ -17,8 +17,7 @@ Rails.application.routes.draw do
     resources :chores, only: [:index, :new]
   end
 
-  resources :chores, except: [:index, :new]
+  resources :chores
 
-  # Root path (optional)
   root 'dashboard#home'
 end
