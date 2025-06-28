@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :household
+  belongs_to :household, optional: true
   has_many :chores
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
