@@ -19,6 +19,5 @@ Rails.application.routes.draw do
 
   resources :chores
 
-  # Root path (optional)
   root 'dashboard#home'
 end
