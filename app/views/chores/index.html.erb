@@ -1,9 +1,11 @@
-<div class="flex flex-col gap-2 w-1/2 py-5 px-2">
+<div class="flex flex-col gap-2 w-1/2 py-5 px-2"
+  data-controller="chores">
     <%= link_to new_chore_path, class: "flex items-center gap-1 bg-blue-500 hover:bg-blue-500 text-white px-3 py-1 rounded text-sm", style: "width: 120px;" do %>
          New Chore
         <% end %>
   <% @chores.each do |chore| %>
-    <div class="flex justify-between items-center bg-white shadow rounded-lg p-3">
+    <div class="flex flex-col bg-white shadow rounded-lg p-3" data-chores-target="chores">
+    <div class="flex justify-between items-center">
       <div class="flex items-center">
         <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
         <span class="ml-3 text-gray-800 text-lg"><%= chore.name %></span>
@@ -20,6 +22,16 @@
               class: "flex items-center gap-1 bg-red-600 hover:bg-red-600 text-white px-3 py-1 rounded text-sm" do %>
           <i class="fas fa-trash-alt"></i>
         <% end %>
+         <button type="button"
+          data-chores-target="dropdown"
+          data-action="click->chores#moreInfo">
+          <i class="fas fa-chevron-down ml-1"></i>
+        </button>
+
+      </div>
+    </div>
+       <div data-chores-target="description" class="mt-2 text-gray-600 hidden">
+          <%= chore.description %>
       </div>
     </div>
   <% end %>
