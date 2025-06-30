@@ -1,0 +1,15 @@
+<p>Hello <%= @resource.email %>,</p>
+
+<p>
+  You've been invited to join a household on CheckMate!
+</p>
+
+<p>
+  <%= link_to "Accept Invitation", accept_invitation_url(@resource, invitation_token: @token), class: "button" %>
+</p>
+
+<% if @resource.invitation_due_at %>
+  <p>This invitation is valid until <%= l(@resource.invitation_due_at, format: :long) %>.</p>
+<% end %>
+
+<p>If you didn't expect this, feel free to ignore it.</p>
