@@ -1,5 +1,5 @@
 class Chore < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :household
 
   validates :name, presence: true

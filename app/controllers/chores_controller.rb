@@ -1,5 +1,5 @@
 class ChoresController < ApplicationController
-  before_action :chore_find, only: [:edit, :destroy]
+  before_action :chore_find, only: [:edit, :destroy, :update]
 
   def index
     @chores = Chore.all
@@ -11,11 +11,11 @@ class ChoresController < ApplicationController
 
   def create
     @chore = Chore.new(chore_params)
-    @chore.user = current_user
+    @chore.user = nil
     @chore.household = current_user.household
 
     if @chore.save
-      redirect_to chores_path, notice: "Chore was successfully created."
+      redirect_to root_path, notice: "Chore was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class ChoresController < ApplicationController
   end
 
   def update
-    if @chore.update(chore_params)
+    if @chore.update(chore_params_update)
       redirect_to chores_path, notice: "Successfully updated"
     else
       render :edit, status: :unprocessable_entity
@@ -47,5 +47,9 @@ class ChoresController < ApplicationController
 
   def chore_params
     params.require(:chore).permit(:name, :description, :date_to_be_completed)
+  end
+
+  def chore_params_update
+    params.require(:chore).permit(:name, :description, :date_to_be_completed, :user_id)
   end
 end
