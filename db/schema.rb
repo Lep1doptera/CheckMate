@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
   end
 
   create_table "chores", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "household_id", null: false
     t.boolean "assigned"
     t.string "name"
