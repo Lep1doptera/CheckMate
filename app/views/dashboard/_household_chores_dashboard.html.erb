@@ -30,7 +30,12 @@
         </div>
     </div>
        <div data-chores-target="description" class="mt-2 text-gray-600 hidden">
-          <%= chore.description %>
+          <div>
+            <%= chore.description %>
+          </div>
+          <div>
+             Due Date: <%= chore.date_to_be_completed.strftime("%B %d, %Y") if chore.date_to_be_completed.present? %>
+          </div>
       </div>
     </div>
   <% end %>
