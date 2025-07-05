@@ -15,7 +15,7 @@ class ChoresController < ApplicationController
     @chore.household = current_user.household
 
     if @chore.save
-      redirect_to root_path, notice: "Chore was successfully created."
+      redirect_to dashboard_path, notice: "Chore was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,13 +25,19 @@ class ChoresController < ApplicationController
    @chore = Chore.find(params[:id])
   end
 
-  def update
-    if @chore.update(chore_params_update)
-      redirect_to chores_path, notice: "Successfully updated"
+ def update
+  if @chore.update(chore_params_update)
+    if @chore.user_id.present?
+      @chore.update(assigned: true)
     else
-      render :edit, status: :unprocessable_entity
+      @chore.update(assigned: nil)
     end
+
+    redirect_to dashboard_path, notice: "Successfully updated"
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
 
   def destroy
     @chore.destroy
