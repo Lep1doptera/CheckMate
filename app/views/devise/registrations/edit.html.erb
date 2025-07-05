@@ -24,9 +24,11 @@
                 required: true,
                 input_html: { autocomplete: "current-password" } %>
 
-    <!-- ✅ Preview current avatar -->
-    <h3 class="mt-4">Current Avatar:</h3>
-    <%= image_tag resource.avatar_url, alt: "Current Avatar", class: "w-16 h-16 rounded-full object-cover mb-4" %>
+    <!-- ✅ Preview current avatar safely -->
+    <% if resource.persisted? && resource.profile_picture.attached? %>
+      <h3 class="mt-4">Current Avatar:</h3>
+      <%= image_tag url_for(resource.profile_picture), alt: "Current Avatar", class: "w-16 h-16 rounded-full object-cover mb-4" %>
+    <% end %>
 
     <!-- ✅ Default Avatar Selection -->
     <h3>Choose a Default Avatar:</h3>
