@@ -15,21 +15,31 @@ class ChoresController < ApplicationController
     @chore.household = current_user.household
 
     if @chore.save
-      redirect_to root_path, notice: "Chore was successfully created."
+      redirect_to dashboard_path, notice: "Chore was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-   @chore = Chore.find(params[:id])
+    @chore = Chore.find(params[:id])
   end
 
   def update
     if @chore.update(chore_params_update)
-      redirect_to chores_path, notice: "Successfully updated"
+      if chore_params_update.key?(:user_id)
+        @chore.update(assigned: @chore.user_id.present?)
+      end
+
+      respond_to do |format|
+        format.html { redirect_to dashboard_path, notice: "Successfully updated" }
+        format.json { render json: @chore }
+      end
     else
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @chore.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -38,11 +48,10 @@ class ChoresController < ApplicationController
     redirect_to chores_path, notice: "Chore deleted successfully."
   end
 
-
   private
 
   def chore_find
-     @chore = Chore.find(params[:id])
+    @chore = Chore.find(params[:id])
   end
 
   def chore_params
@@ -50,6 +59,13 @@ class ChoresController < ApplicationController
   end
 
   def chore_params_update
-    params.require(:chore).permit(:name, :description, :date_to_be_completed, :user_id)
+    params.require(:chore).permit(
+      :name,
+      :description,
+      :date_to_be_completed,
+      :user_id,
+      :completed,
+      :completion_date
+    )
   end
 end
