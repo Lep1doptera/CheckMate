@@ -1,11 +1,32 @@
+
+
 <div class="flex flex-col gap-2 py-5 px-2"
   data-controller="chores">
 
   <% @chores.each do |chore| %>
-    <div class="flex flex-col bg-white shadow rounded-lg p-3" data-chores-target="chores">
+    <% bg_class =
+        if !chore.completed?
+          if chore.date_to_be_completed.present? && chore.date_to_be_completed < Date.today
+            "bg-red-300"
+          elsif chore.date_to_be_completed.present? && chore.date_to_be_completed <= 2.days.from_now.to_date
+            "bg-yellow-300"
+          else
+            "bg-white"
+          end
+        else
+          "bg-green-500"
+        end
+    %>
+
+    <div class="flex flex-col <%= bg_class %> shadow rounded-lg p-3 <%= 'line-through' if chore.completed %>" data-chores-target="chores">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
-        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+        <input type="checkbox"
+          data-chores-target="checkbox"
+          data-chore-id="<%= chore.id %>"
+          data-action="click->chores#checked"
+          <%= 'checked' if chore.completed %>
+          class="form-checkbox h-5 w-5 text-blue-600" />
         <span class="ml-3 text-gray-800 text-lg"><%= chore.name %></span>
       </div>
 
@@ -37,4 +58,4 @@
       </div>
     </div>
   <% end %>
-</div>
+  </div>
