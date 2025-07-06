@@ -9,14 +9,19 @@
     <ul class="space-y-1 text-blue-700">
     </ul>
 
-  <%= form_with url: invite_member_household_path(current_user.household), method: :post, local: true do |form| %>
-    <div class="flex justify-center mt-4">
-      <div class="flex items-center space-x-2">
-        <%= form.email_field :email, placeholder: "Invite by email", class: "border rounded px-2 py-1" %>
-        <%= form.submit "Invite", class: "bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm" %>
+    <%= form_with url: invite_member_household_path(current_user.household), method: :post, local: true do |form| %>
+      <div class="flex justify-center mt-4">
+        <div class="flex items-center space-x-2">
+          <%= form.email_field :email, placeholder: "Invite by email", class: "border rounded px-2 py-1" %>
+          <%= form.submit "Invite", class: "bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm" %>
+        </div>
       </div>
+    <% end %>
+    <div class="flex justify-center mt-2">
+      <%= form_with url: leave_households_path, method: :post, local: true do %>
+        <%= submit_tag "Leave #{current_user.household.name}", class: "text-blue-600 hover:underline" %>
+      <% end %>
     </div>
-  <% end %>
-    <%= link_to "Leave #{current_user.household.name}", "#", class: "block hover:underline mt-2 text-blue-600" %>
+
   </div>
 </div>
