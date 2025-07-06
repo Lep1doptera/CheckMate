@@ -74,7 +74,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.bigint "household_id"
-    t.string "default_avatar"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -83,6 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "default_avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["household_id"], name: "index_users_on_household_id"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
