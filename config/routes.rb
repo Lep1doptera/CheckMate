@@ -24,5 +24,11 @@ Rails.application.routes.draw do
 
   resources :chores
 
-  root 'dashboard#home'
+  authenticated :user do
+    root 'dashboard#home', as: :authenticated_root
+  end
+
+  unauthenticated do
+    root 'pages#landing', as: :unauthenticated_root
+  end
 end

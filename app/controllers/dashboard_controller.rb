@@ -10,12 +10,10 @@ class DashboardController < ApplicationController
       ['Incomplete', Chore.where(completed: false).count]
     ]
   end
-  
+
   def my_dashboard
-     @user = current_user
-     @household = @user.household
-     @chores = @household.chores.where(user_id: @user.id)
+    @user = current_user
+    @household = @user.household
+    @chores = @household.chores.where(user_id: @user.id)
   end
-
-
 end

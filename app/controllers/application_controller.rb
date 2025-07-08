@@ -7,4 +7,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:default_avatar,:profile_picture])
     devise_parameter_sanitizer.permit(:sign_up, keys: [:default_avatar, :profile_picture])
   end
+
+  def after_sign_in_path_for(_resource)
+    dashboard_path # or authenticated_root_path
+  end
+
+  # ✅ Redirect users after logout
+  def after_sign_out_path_for(_resource_or_scope)
+    unauthenticated_root_path
+  end
 end
