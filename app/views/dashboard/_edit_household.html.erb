@@ -1,0 +1,25 @@
+<div class="relative h-full w-full px-4">
+
+<%= form_with model: household, url: household_path(household), method: :patch,
+              data: { turbo_frame: "household_edit_frame" } do |form| %>
+              
+    <div class="flex justify-between items-center mb-2">
+      <%= form.text_field :name, class: "border rounded px-2 py-1 text-xl font-semibold" %>
+      <%= form.submit "💾 Save", class: "text-blue-600 hover:underline" %>
+    </div>
+
+    <div class="flex space-x-3 mb-4">
+      <% household.users.each do |member| %>
+        <div class="relative group">
+          <%= image_tag member.avatar_url, alt: member.name, class: "w-10 h-10 rounded-full" %>
+          <%= link_to "❌", remove_member_household_path(household, user_id: member.id), method: :delete, data: { turbo_frame: "household_edit_frame", confirm: "Remove #{member.name} from household?" }, class: "absolute -top-2 -right-2 text-red-600 opacity-0 group-hover:opacity-100 transition" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= render 'invite_form', household: household %>
+    <%= render 'leave_form' %>
+  </div>
+</div>
