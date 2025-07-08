@@ -1,4 +1,5 @@
 class HouseholdsController < ApplicationController
+
   def invite_member
     Rails.logger.debug "Inviting #{params[:email]}"
     puts "Inviting #{params[:email]}"

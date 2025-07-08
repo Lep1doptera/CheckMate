@@ -1,19 +1,17 @@
-<div class="relative h-full">
-  <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
-    <button
-      data-action="click->modal#open"
-      class="text-blue-600 hover:text-blue-800 text-sm"
-      title="Edit Household">
-      ✏️
-    </button>
+<div class="relative h-full w-full px-4">
+
+  <div class="absolute top-2 right-2 z-10">
+    <%= link_to "✏️", household_path(current_user.household, edit: true),
+          data: { turbo_frame: "household_edit_frame" },
+          class: "text-blue-600 hover:underline" %>
   </div>
+
 
   <div class="pr-10 text-center">
     <h2 class="text-xl font-semibold mb-2"> <%= current_user.household.name %></h2>
   </div>
-  <div class="flex">
-    <div id="donutchart" data-chartvalues="<%= @chore_status_data.to_json %>" style="width: 400px; height: 225px;"></div>
-  </div>
+
+
   <div class="absolute top-2 right-2 flex flex-col items-end space-y-2">
     <ul class="space-y-1 text-blue-700">
       <% current_user.household.users.each do |member| %>
@@ -29,6 +27,7 @@
         </div>
       </div>
     <% end %>
+
     <div class="flex justify-center mt-2">
       <%= form_with url: leave_households_path, method: :post, local: true do %>
         <%= submit_tag "Leave #{current_user.household.name}", class: "text-blue-600 hover:underline" %>
