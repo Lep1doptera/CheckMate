@@ -10,7 +10,7 @@ class HouseholdsController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.turbo_stream { render partial: "edit_household", locals: { household: @household } }
+      format.html { render partial: "dashboard/edit_household", locals: { household: @household } }
       format.html { redirect_to dashboard_path }
     end
   end

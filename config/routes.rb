@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     member do
       get 'edit'
-      patch '', action: :update 
+      patch '', action: :update
       delete 'remove_member/:user_id', to: 'households#remove_member', as: 'remove_member'
     end
   end
