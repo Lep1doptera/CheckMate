@@ -1,23 +1,40 @@
 <div class="relative h-full w-full px-4">
-   <turbo-frame id="household_edit_frame">
-<%= form_with model: household, url: household_path(household), method: :patch,
-              data: { turbo_frame: "household_edit_frame" } do |form| %>
+  <turbo-frame id="household_edit_frame">
+    <%= form_with model: household, url: household_path(household), method: :patch,
+                  data: { turbo_frame: "household_edit_frame" } do |form| %>
 
-    <div class="flex justify-between items-center mb-2">
-      <%= form.text_field :name, class: "border rounded px-2 py-1 text-xl font-semibold" %>
-      <%= form.submit "💾 Save", class: "text-blue-600 hover:underline" %>
-    </div>
-
-    <div class="flex space-x-3 mb-4">
-      <% household.users.each do |member| %>
-        <div class="relative group">
-          <%= image_tag member.avatar_url, alt: member.name, class: "w-10 h-10 rounded-full" %>
-          <%= link_to "❌", remove_member_household_path(household, user_id: member.id), method: :delete, data: { turbo_frame: "household_edit_frame", confirm: "Remove #{member.name} from household?" }, class: "absolute -top-2 -right-2 text-red-600 opacity-0 group-hover:opacity-100 transition" %>
+      <div class="mb-2">
+        <label class="block text-sm text-gray-500 mb-1">Change title</label>
+        <div class="flex items-center gap-2">
+          <%= form.text_field :name, class: "border rounded px-2 py-1 text-xl font-semibold w-1/2" %>
+          <%= form.submit "💾", class: "text-xl text-gray-700 hover:text-blue-600 bg-transparent border-none p-0" %>
         </div>
-      <% end %>
-    </div>
-  <% end %>
+      </div>
+
+      <div class="mt-4 mb-1">
+        <p class="text-sm text-gray-500">Click ❌ to remove a member from the household</p>
+      </div>
+
+      <div class="flex justify-between items-center">
+
+        <div class="flex flex-wrap gap-x-6 gap-y-4 items-center">
+          <% household.users.each do |member| %>
+            <div class="flex items-center space-x-2">
+              <%= image_tag member.avatar_url, alt: member.name, class: "w-10 h-10 rounded-full object-cover" %>
+              <%= button_to "❌", remove_member_household_path(household, user_id: member.id),
+                method: :delete,
+                form: { data: { turbo_frame: "household_edit_frame" }, class: "inline" },
+                data: { confirm: "Remove #{member.name} from household?" },
+                class: "text-xs text-red-600 bg-transparent border-none p-0.5 rounded shadow" %>
+            </div>
+          <% end %>
+        </div>
 
 
-   </turbo-frame>
+        <%= link_to "Back", household_path(household),
+            data: { turbo_frame: "household_edit_frame" },
+            class: "text-sm text-gray-600 hover:text-blue-600 underline" %>
+      </div>
+    <% end %>
+  </turbo-frame>
 </div>

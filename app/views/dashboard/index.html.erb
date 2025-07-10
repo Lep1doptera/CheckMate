@@ -9,8 +9,8 @@
 <!-- Right Side -->
 <div class="w-3/5 flex flex-col gap-6 min-h-0 overflow-hidden">
 
-  <!-- Top Right Card (smaller) -->
-  <div class="bg-white rounded-lg shadow p-6 h-[180px] overflow-hidden">
+  <!-- Top Right Card (slightly taller than original) -->
+  <div class="bg-white rounded-lg shadow p-6 h-[200px] overflow-hidden">
     <div class="h-full overflow-auto">
       <turbo-frame id="household_edit_frame">
         <%= render "household", household: current_user.household %>
@@ -24,3 +24,4 @@
       <%= render "more" %>
     </div>
   </div>
+</div>

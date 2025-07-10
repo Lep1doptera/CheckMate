@@ -11,15 +11,15 @@
     <h2 class="text-xl font-semibold"><%= current_user.household.name %></h2>
   </div>
 
-  <div class="flex items-center space-x-4 mb-6">
-    <% current_user.household.users.each do |member| %>
-      <div class="relative group">
-        <%= image_tag member.avatar_url, alt: member.name, class: "w-10 h-10 rounded-full object-cover" %>
-        <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow whitespace-nowrap z-50">
-          <%= member.name %>
-        </div>
+<div class="flex items-center space-x-4 mb-6 min-h-[56px]"> <!-- min-h matches avatar height -->
+  <% current_user.household.users.each do |member| %>
+    <div class="relative group">
+      <%= image_tag member.avatar_url, alt: member.name, class: "w-14 h-14 rounded-full object-cover" %>
+      <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded shadow whitespace-nowrap z-50">
+        <%= member.name %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
 
     <div class="flex-1"></div>
@@ -31,9 +31,9 @@
         </div>
       <% end %>
 
-      <%= form_with url: leave_households_path, method: :post, local: true do %>
-        <%= submit_tag "Leave #{current_user.household.name}", class: "text-blue-600 hover:underline" %>
-      <% end %>
+    <%= form_with url: leave_households_path, method: :post, data: { turbo: false } do %>
+      <%= submit_tag "Leave #{current_user.household.name}", class: "text-blue-600 hover:underline" %>
+    <% end %>
     </div>
   </div>
 

@@ -3,7 +3,7 @@ class HouseholdsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.turbo_stream { render partial: "household", locals: { household: @household } }
+      format.turbo_stream { redirect_to household_path(@household), locals: { household: @household } }
       format.html { redirect_to dashboard_path }
     end
   end
@@ -18,13 +18,13 @@ class HouseholdsController < ApplicationController
   def update
     if @household.update(household_params)
       respond_to do |format|
-        format.turbo_stream { render partial: "household", locals: { household: @household } }
-        format.html { redirect_to dashboard_path, notice: "Household updated." }
+        format.turbo_stream { redirect_to household_path(@household), locals: { household: @household } }
+        format.html { redirect_to household_path(@household), notice: "Household updated." }
       end
     else
       respond_to do |format|
-        format.turbo_stream { render partial: "edit_household", locals: { household: @household } }
-        format.html { redirect_to dashboard_path }
+        format.turbo_stream { render partial: "edit_household", locals: { household: @household }, formats: [:html] }
+        format.html { render :edit }
       end
     end
   end
@@ -32,8 +32,10 @@ class HouseholdsController < ApplicationController
   def remove_member
     user = User.find(params[:user_id])
     user.update(household_id: nil)
+
     respond_to do |format|
       format.turbo_stream { render partial: "edit_household", locals: { household: @household } }
+      format.html { redirect_to household_path(@household), notice: "#{user.name} was removed from the household." }
     end
   end
 
@@ -51,8 +53,9 @@ class HouseholdsController < ApplicationController
 
   def leave
     current_user.update(household_id: nil)
-    redirect_to dashboard_path, notice: "You've left the household."
+    redirect_to my_dashboard_path, notice: "You've left the household."
   end
+
 
   private
 
