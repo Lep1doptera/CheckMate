@@ -10,13 +10,19 @@
 <div class="w-3/5 flex flex-col gap-6 min-h-0 overflow-hidden">
 
   <!-- Top Right Card (slightly taller than original) -->
+  <% if current_user.household.nil? %>
   <div class="bg-white rounded-lg shadow p-6 h-[200px] overflow-hidden">
     <div class="h-full overflow-auto">
-      <turbo-frame id="household_edit_frame">
-        Make a new house or join one
+      <turbo-frame id="household_modal_frame">
+        <div>
+            <%= link_to "Create house", new_household_path,
+              data: { turbo_frame: "household_modal_frame" },
+              class: "text-blue-600 hover:underline" %>
+          </div>
       </turbo-frame>
     </div>
   </div>
+<% end %>
 
   <!-- Bottom Right Card (larger) -->
   <div class="bg-white rounded-lg shadow p-6 flex-1 min-h-0 overflow-hidden">

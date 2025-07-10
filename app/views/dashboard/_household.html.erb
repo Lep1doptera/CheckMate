@@ -11,7 +11,7 @@
     <h2 class="text-xl font-semibold"><%= current_user.household.name %></h2>
   </div>
 
-<div class="flex items-center space-x-4 mb-6 min-h-[56px]"> <!-- min-h matches avatar height -->
+<div class="flex items-center space-x-4 mb-6 min-h-[56px]">
   <% current_user.household.users.each do |member| %>
     <div class="relative group">
       <%= image_tag member.avatar_url, alt: member.name, class: "w-14 h-14 rounded-full object-cover" %>

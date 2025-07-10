@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :households do
     resources :chores, only: [:index, :new]
+
     post 'invite_member', on: :member
     post 'leave', on: :collection
 
