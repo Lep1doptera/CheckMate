@@ -6,6 +6,7 @@ class HouseholdsController < ApplicationController
     @household = @user.household
     @has_household = @household.present?
   end
+
   def index
     @households = Household.all
     redirect_to dashboard_path
@@ -25,17 +26,17 @@ class HouseholdsController < ApplicationController
     end
   end
 
-    def create
-      @household = Household.new(household_params)
-      @household.users << current_user
+  def create
+    @household = Household.new(household_params)
+    @household.users << current_user
 
-      if @household.save
-        redirect_to dashboard_path, notice: "Household created successfully."
-      else
-        render partial: "dashboard/new", status: :unprocessable_entity
-      end
-
+    if @household.save
+      redirect_to dashboard_path, notice: "Household created successfully."
+    else
+      render partial: "dashboard/new", status: :unprocessable_entity
     end
+
+  end
 
 
   def edit
@@ -60,14 +61,20 @@ class HouseholdsController < ApplicationController
   end
 
   def remove_member
-    user = User.find(params[:user_id])
+    @household = Household.find(params[:id])      
+    user       = User.find(params[:user_id])
     user.update(household_id: nil)
 
     respond_to do |format|
       format.turbo_stream do
-        render partial: "dashboard/edit", locals: { household: @household }
+        render turbo_stream: turbo_stream.replace(
+          "household_edit_frame",
+          partial: "dashboard/edit_household",
+          locals: { household: @household }
+        )
       end
-      format.html { redirect_to household_path(@household), notice: "#{user.name} was removed from the household." }
+      format.html { redirect_to household_path(@household),
+                                notice: "#{user.name} was removed from the household." }
     end
   end
 

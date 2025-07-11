@@ -12,25 +12,31 @@
       </div>
 
       <div class="mt-4 mb-1">
-        <p class="text-sm text-gray-500">Click ❌ to remove a member from the household</p>
+       <% other_members = household.users.reject { |me| me == current_user } %>
+        <p class="text-sm text-gray-500">
+          <%= other_members.any? ? "Click ❌ to remove a member from the household" : "No other members to remove" %>
+        </p>
       </div>
 
       <div class="flex justify-between items-center">
-
         <div class="flex flex-wrap gap-x-6 gap-y-4 items-center">
-          <% household.users.each do |member| %>
-            <div class="flex items-center space-x-2">
-              <%= image_tag member.avatar_url, alt: member.name, class: "w-10 h-10 rounded-full object-cover" %>
-              <%= button_to "❌", remove_member_household_path(household, user_id: member.id),
-                method: :delete,
-                form: { data: { turbo_frame: "household_edit_frame" }, class: "inline" },
-                data: { confirm: "Remove #{member.name} from household?" },
-                class: "text-xs text-red-600 bg-transparent border-none p-0.5 rounded shadow" %>
-            </div>
-          <% end %>
+            <% household.users.each do |member| %>
+              <% next if member == current_user %>
+              <div class="flex items-center space-x-2">
+                <%= image_tag member.avatar_url,
+                              alt: member.name,
+                              class: "w-10 h-10 rounded-full object-cover" %>
+                <%= link_to "❌",
+                            remove_member_household_path(household, user_id: member.id),
+                            data: {
+                              turbo_method:  :delete,
+                              turbo_confirm: "Remove #{member.name} from household?",
+                              turbo_frame:   "household_edit_frame"
+                            },
+                            class: "text-xs text-red-600 hover:text-red-800" %>
+                </div>
+                <% end %>
         </div>
-
-
         <%= link_to "Back", household_path(household),
             data: { turbo_frame: "household_edit_frame" },
             class: "text-sm text-gray-600 hover:text-blue-600 underline" %>
