@@ -32,6 +32,7 @@ class ChoresController < ApplicationController
       end
 
       respond_to do |format|
+        format.turbo_stream
         format.html { redirect_to dashboard_path, notice: "Successfully updated" }
         format.json { render json: @chore }
       end

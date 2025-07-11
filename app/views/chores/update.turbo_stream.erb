@@ -1,0 +1,7 @@
+<%= turbo_stream.remove "chore_#{@chore.id}" %>
+
+<% if @chore.completed? %>
+  <%= turbo_stream.append "completed_chores", partial: "dashboard/my_chore", locals: { chore: @chore } %>
+<% else %>
+  <%= turbo_stream.append "incomplete_chores", partial: "dashboard/my_chore", locals: { chore: @chore } %>
+<% end %>

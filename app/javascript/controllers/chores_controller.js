@@ -51,9 +51,6 @@ export default class extends Controller {
       }
     }
 
-
-
-    // Send update to backend (optional)
     const choreId = checkbox.dataset.choreId
     const token = document.querySelector('meta[name="csrf-token"]').content
 
@@ -62,7 +59,7 @@ export default class extends Controller {
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": token,
-        "Accept": "application/json"
+        "Accept": "text/vnd.turbo-stream.html"
       },
       body: JSON.stringify({
         chore: {
