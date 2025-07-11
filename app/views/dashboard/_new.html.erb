@@ -1,0 +1,22 @@
+<turbo-frame id="household_modal_frame">
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+      <h2 class="text-xl font-semibold mb-4">Create a New Household</h2>
+
+      <%= form_with model: @household, url: households_path, method: :post, data: { turbo_frame: "_top" } do |form| %>
+        <div class="mb-4">
+          <%= form.label :name, "Household Name", class: "block text-sm text-gray-600" %>
+          <%= form.text_field :name, class: "w-full border rounded px-3 py-2 mt-1" %>
+        </div>
+
+        <div class="flex justify-end gap-4">
+          <%= link_to "Back", my_dashboard_path,
+              data: { turbo_frame: "household_modal_frame" },
+              class: "px-4 py-2 rounded border border-gray-300 text-gray-600 hover:text-blue-600 text-sm" %>
+
+          <%= form.submit "Create", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</turbo-frame>

@@ -18,8 +18,15 @@ Rails.application.routes.draw do
 
   resources :households do
     resources :chores, only: [:index, :new]
+
     post 'invite_member', on: :member
     post 'leave', on: :collection
+
+    member do
+      get 'edit'
+      patch '', action: :update
+      delete 'remove_member/:user_id', to: 'households#remove_member', as: 'remove_member'
+    end
   end
 
   resources :chores
