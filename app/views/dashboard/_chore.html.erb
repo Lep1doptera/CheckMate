@@ -23,7 +23,9 @@
 
     <div class="flex">
       <% if chore.user.present? %>
-        <%= chore.user.name %>
+        <div class="relative inline-block h-12 w-12">
+          <%= image_tag chore.user.avatar_url, class: "h-12 w-12 rounded-full object-cover object-center" %>
+        </div>
       <% else %>
         <%= link_to edit_chore_path(chore), class: "flex items-center gap-1 bg-yellow-500 hover:bg-yellow-500 text-black px-4 py-1 rounded text-sm" do %>
           <i class="fa-solid fa-person"></i>
