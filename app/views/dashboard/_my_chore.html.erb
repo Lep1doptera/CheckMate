@@ -1,0 +1,64 @@
+<div id="chore_<%= chore.id %>">
+  <div class="flex flex-col py-1 px-2"
+    data-controller="chores">
+
+      <% bg_class =
+          if !chore.completed?
+            if chore.date_to_be_completed.present? && chore.date_to_be_completed < Date.today
+              "bg-red-300"
+            elsif chore.date_to_be_completed.present? && chore.date_to_be_completed <= 2.days.from_now.to_date
+              "bg-yellow-300"
+            else
+              "bg-white"
+            end
+          else
+            "bg-green-500"
+          end
+      %>
+
+      <div class="flex flex-col <%= bg_class %> shadow rounded-lg p-3"
+      data-chores-target="chores"
+      data-date-to-be-completed="<%= chore.date_to_be_completed %>">
+
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <input type="checkbox"
+            data-chores-target="checkbox"
+            data-chore-id="<%= chore.id %>"
+            data-action="click->chores#checked"
+            <%= 'checked' if chore.completed %>
+            class="form-checkbox h-5 w-5 text-blue-600" />
+          <span class="ml-3 text-gray-800 text-lg <%= 'line-through text-gray-500' if chore.completed %>">
+            <%= chore.name %>
+          </span>
+        </div>
+
+        <div class="flex gap-2">
+          <%= link_to edit_chore_path(chore), class: "flex items-center gap-1 bg-yellow-500 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm" do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
+
+          <%= link_to chore_path(chore),
+                data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                class: "flex items-center gap-1 bg-red-600 hover:bg-red-600 text-white px-3 py-1 rounded text-sm" do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+          <button type="button"
+            data-chores-target="dropdown"
+            data-action="click->chores#moreInfo">
+            <i class="fas fa-chevron-down ml-1"></i>
+          </button>
+
+        </div>
+      </div>
+        <div data-chores-target="description" class="mt-2 text-gray-600 hidden">
+          <div>
+            <%= chore.description %>
+            </div>
+            <div>
+            Due Date: <%= chore.date_to_be_completed.strftime("%B %d, %Y") if chore.date_to_be_completed.present? %>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

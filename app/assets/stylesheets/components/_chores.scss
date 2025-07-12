@@ -1,0 +1,18 @@
+.chore-updating {
+  transition: all 0.6s ease-in-out;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-chores-target="chores"] {
+  transition: background-color 0.4s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.line-through {
+  transition: text-decoration 0.3s ease-in-out;
+}
+
+turbo-stream[action="remove"] [data-turbo-temporary],
+turbo-stream[action="append"] [data-turbo-temporary] {
+  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+}
