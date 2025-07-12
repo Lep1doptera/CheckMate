@@ -28,6 +28,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def after_update_path_for(resource)
+    edit_user_registration_path
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up,        keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :default_avatar, :profile_picture])
+  end
   # DELETE /resource
   # def destroy
   #   super

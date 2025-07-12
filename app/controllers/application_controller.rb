@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    dashboard_path # or authenticated_root_path
+    my_dashboard_path # or authenticated_root_path
   end
 
   # ✅ Redirect users after logout
