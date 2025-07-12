@@ -4,21 +4,22 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() { console.log('hello')
   }
-  static targets = ["loginForm", "signupForm"]
+  static targets = ["loginForm", "signupForm", "authModal"]
 
   openLogin() {
+    this.authModalTarget.classList.remove("hidden")
     this.loginFormTarget.classList.remove("hidden")
     this.signupFormTarget.classList.add("hidden")
-    this.element.classList.remove("hidden")
+
   }
 
   openSignup() {
+    this.authModalTarget.classList.remove("hidden")
     this.signupFormTarget.classList.remove("hidden")
     this.loginFormTarget.classList.add("hidden")
-    this.element.classList.remove("hidden")
   }
 
   close() {
-    this.element.classList.add("hidden")
+    this.authModalTarget.classList.add("hidden")
   }
 }
