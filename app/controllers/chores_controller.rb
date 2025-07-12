@@ -46,7 +46,7 @@ class ChoresController < ApplicationController
 
   def destroy
     @chore.destroy
-    redirect_to chores_path, notice: "Chore deleted successfully."
+    redirect_to my_dashboard_path, notice: "Chore deleted successfully."
   end
 
   private

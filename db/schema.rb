@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_12_050318) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
     t.index ["user_id"], name: "index_chores_on_user_id"
   end
 
+  create_table "costings", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.bigint "household_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "date"
+    t.decimal "amount", precision: 8, scale: 2
+    t.index ["household_id"], name: "index_costings_on_household_id"
+    t.index ["user_id"], name: "index_costings_on_user_id"
+  end
+
   create_table "households", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -95,5 +108,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_091805) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chores", "households"
   add_foreign_key "chores", "users"
+  add_foreign_key "costings", "households"
+  add_foreign_key "costings", "users"
   add_foreign_key "users", "households"
 end
