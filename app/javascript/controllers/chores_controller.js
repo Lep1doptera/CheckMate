@@ -54,28 +54,36 @@ export default class extends Controller {
     const choreId = checkbox.dataset.choreId
     const token = document.querySelector('meta[name="csrf-token"]').content
 
-    fetch(`/chores/${choreId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": token,
-        "Accept": "text/vnd.turbo-stream.html"
-      },
-      body: JSON.stringify({
-        chore: {
-          completed: completed,
-          completion_date: completed ? new Date().toISOString() : null
-        }
+    // Add animation class before making request
+    choreCard.classList.add("chore-updating")
+
+    // Delay the fetch to allow animation to show
+    setTimeout(() => {
+      fetch(`/chores/${choreId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": token,
+          "Accept": "text/vnd.turbo-stream.html"
+        },
+        body: JSON.stringify({
+          chore: {
+            completed: completed,
+            completion_date: completed ? new Date().toISOString() : null
+          }
+        })
       })
-    })
-
-    .then(response => response.text())
-    .then(html => {
-      Turbo.renderStreamMessage(html)
-    })
-
-    .catch(error => {
-      console.error("Error updating chore:", error)
-    })
+      .then(response => response.text())
+      .then(html => {
+        Turbo.renderStreamMessage(html)
+        setTimeout(() => {
+          choreCard.classList.remove("chore-updating")
+        }, 100)
+      })
+      .catch(error => {
+        console.error("Error updating chore:", error)
+        choreCard.classList.remove("chore-updating")
+      })
+    }, 600)
   }
 }
