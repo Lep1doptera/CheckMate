@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <title>CheckMate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,13 +7,13 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <%= javascript_importmap_tags %>
     <script src="https://cdn.tailwindcss.com"></script>
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", media: "all" %>
   </head>
 
   <body class="bg-gray-100 min-h-screen">
+
   <div id="hello" data-controller="auth">
     <div id="auth-modal" data-auth-target="authModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
@@ -33,6 +32,7 @@
   </div>
     <!-- Top Nav -->
     <nav class="bg-blue-600 text-white px-5 py-3 flex items-center justify-between">
+
     <a href="/" class="text-2xl font-bold">CheckMate</a>
     <div>
       <% unless user_signed_in? %>
@@ -61,23 +61,27 @@
               </div>
             </div>
 
-    <% if current_user.household %>
-      <%= link_to "🏡 Household", dashboard_path, class: "block hover:underline" %>
-    <% end %>
+            <% if current_user.household %>
+              <%= link_to "🏡 Household", dashboard_path, class: "block hover:underline" %>
+            <% end %>
 
-    <%= link_to "🙎‍♂️ My Dashboard", my_dashboard_path, class: "block hover:underline"%>
+            <%= link_to "🙎‍♂️ My Dashboard", my_dashboard_path, class: "block hover:underline"%>
+            <%= link_to "👤 My Profile", edit_user_registration_path, class: "block hover:underline" %>
+            <%= link_to "🚪 Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "block hover:underline text-red-600" %>
+          </nav>
+        </aside>
 
-    <%= link_to "👤 My Profile", edit_user_registration_path, class: "block hover:underline" %>
+        <!-- ✅ Main signed-in content -->
+        <main class="flex-1 p-6">
+          <%= yield %>
+        </main>
+      </div>
 
-    <%= link_to "🚪 Logout", destroy_user_session_path, method: :delete, class: "block hover:underline text-red-600" %>
-    </nav>
-    </aside>
-      <% end %>
-
-      <!-- Main Content -->
-      <main class="flex-1">
-        <%= yield %>
+    <% else %>
+      <!-- ✅ Public content (not signed in) -->
+      <main class="p-6">
+        <%= yield %> <!-- This will render home.html.erb -->
       </main>
-    </div>
+    <% end %>
   </body>
 </html>
