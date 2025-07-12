@@ -14,13 +14,10 @@ class DashboardController < ApplicationController
   def my_dashboard
     @user = current_user
     @household = @user.household
-
     if @household
       @chores = @household.chores.where(user_id: @user.id)
     else
       @chores = []
     end
   end
-
-
 end
