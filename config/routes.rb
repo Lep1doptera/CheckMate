@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'my_dashboard', to: 'dashboard#my_dashboard'
 
   resources :users, only: [:show, :index, :edit, :update]
-
+  resources :costings
 
   resources :households do
     resources :chores, only: [:index, :new]
