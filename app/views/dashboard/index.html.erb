@@ -5,23 +5,23 @@
       <%= render "household_chores_dashboard" %>
     </div>
   </div>
-  
-  <!-- Right Side -->
-  <div class="w-3/5 flex flex-col gap-6 min-h-0 overflow-hidden">
-    <!-- Top Right Card (smaller) -->
-    <div class="bg-white rounded-lg shadow p-6 flex-[1] min-h-0 overflow-hidden">
-      <div class="h-full overflow-auto">
-        <turbo-frame id="household_edit_frame">
-          <%= render "household" %>
-        </turbo-frame>
-      </div>
-    </div>
 
-    <!-- Bottom Right Card (larger) -->
-    <div class="bg-white rounded-lg shadow p-6 flex-[3] min-h-0 overflow-hidden">
-      <div class="h-full overflow-auto">
-        <%= render "more" %>
-      </div>
+<!-- Right Side -->
+<div class="w-3/5 flex flex-col gap-6 min-h-0 overflow-hidden">
+
+  <!-- Top Right Card (slightly taller than original) -->
+  <div class="bg-white rounded-lg shadow p-6 h-[200px] overflow-hidden">
+    <div class="h-full overflow-auto">
+      <turbo-frame id="household_edit_frame">
+        <%= render "household", household: current_user.household %>
+      </turbo-frame>
+    </div>
+  </div>
+
+  <!-- Bottom Right Card (larger) -->
+  <div class="bg-white rounded-lg shadow p-6 flex-1 min-h-0 overflow-hidden">
+    <div class="h-full overflow-auto">
+      <%= render "more" %>
     </div>
   </div>
 </div>
