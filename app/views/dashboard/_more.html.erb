@@ -1,4 +1,26 @@
-  <!-- Chart -->
-  <div class="flex">
-    <div id="donutchart" data-chartvalues="<%= @chore_status_data.to_json %>" style="width: 400px; height: 225px;"></div>
+  <div data-controller="embla" class="overflow-hidden relative">
+  <!-- Viewport -->
+  <div data-embla-target="viewport" class="overflow-hidden">
+    <div class="flex">
+    <% slides = [
+        { partial: "pie_chart", locals: { user: current_user } }
+      ] %>
+      <!-- Slides -->
+      <% slides.each do |slide| %>
+        <div class="flex-[0_0_100%] p-4">
+          <div class="bg-white rounded-lg shadow p-6 h-full">
+            <%= render partial: slide[:partial], locals: slide[:locals] %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
+
+  <!-- Buttons -->
+  <button data-embla-target="prevBtn" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white p-2">
+    ⬅️
+  </button>
+  <button data-embla-target="nextBtn" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white p-2">
+    ➡️
+  </button>
+</div>
