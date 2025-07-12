@@ -1,4 +1,4 @@
-console.log("hi")
+console.log("pie chart")
 google.charts.load("current", {packages:["corechart"]});
 
 document.addEventListener("turbo:load", function () {
