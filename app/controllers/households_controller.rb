@@ -86,8 +86,6 @@ class HouseholdsController < ApplicationController
       email: params[:email],
       household: current_user.household
     )
-
-    redirect_to household_path(current_user.household), notice: "Invite sent!"
   end
 
   def leave
