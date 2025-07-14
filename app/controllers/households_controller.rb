@@ -61,7 +61,7 @@ class HouseholdsController < ApplicationController
   end
 
   def remove_member
-    @household = Household.find(params[:id])      
+    @household = Household.find(params[:id])
     user       = User.find(params[:user_id])
     user.update(household_id: nil)
 
