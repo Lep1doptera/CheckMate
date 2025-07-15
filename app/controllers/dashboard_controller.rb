@@ -14,6 +14,7 @@ class DashboardController < ApplicationController
   def my_dashboard
     @user = current_user
     @household = @user.household
+    @costings = current_user.costings.order(date: :desc)
     if @household
       @chores = @household.chores.where(user_id: @user.id)
     else
