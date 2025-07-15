@@ -61,7 +61,7 @@ class HouseholdsController < ApplicationController
   end
 
   def remove_member
-    @household = Household.find(params[:id])      
+    @household = Household.find(params[:id])
     user       = User.find(params[:user_id])
     user.update(household_id: nil)
 
@@ -86,8 +86,6 @@ class HouseholdsController < ApplicationController
       email: params[:email],
       household: current_user.household
     )
-
-    redirect_to household_path(current_user.household), notice: "Invite sent!"
   end
 
   def leave

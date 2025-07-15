@@ -21,8 +21,8 @@ class DashboardController < ApplicationController
       @chores = []
     end
     @chore_status_data = [
-      ['Complete', Chore.where(completed: true).count],
-      ['Incomplete', Chore.where(completed: false).count]
+      ['Complete', @chores.where(completed: true).count],
+      ['Incomplete', @chores.where(completed: false).count]
     ]
   end
 end

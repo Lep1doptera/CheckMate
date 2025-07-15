@@ -1,14 +1,17 @@
-  <div data-controller="embla" class="overflow-hidden relative">
+  <div data-controller="embla" class="h-full relative overflow-hidden">
   <!-- Viewport -->
-  <div data-embla-target="viewport" class="overflow-hidden">
-    <div class="flex">
+  <div data-embla-target="viewport" class="h-full overflow-hidden">
+    <div class="flex h-full">
     <% slides = [
-        { partial: "pie_chart", locals: { user: current_user } }
+        { partial: "carousel_one", locals: { user: current_user } },
+        { partial: "carousel_two", locals: { user: current_user } },
+        { partial: "carousel_three", locals: { user: current_user } },
+        { partial: "carousel_four", locals: { user: current_user } }
       ] %>
       <!-- Slides -->
       <% slides.each do |slide| %>
-        <div class="flex-[0_0_100%] p-4">
-          <div class="bg-white rounded-lg shadow p-6 h-full">
+        <div class="flex-[0_0_100%] h-full px-4">
+          <div class="h-full w-full overflow-auto">
             <%= render partial: slide[:partial], locals: slide[:locals] %>
           </div>
         </div>
