@@ -5,4 +5,8 @@ class Chore < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :date_to_be_completed, presence: true
+
+  def due_label
+    completed? ? "✅ #{name}" : name
+  end
 end
