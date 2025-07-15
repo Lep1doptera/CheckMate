@@ -21,7 +21,6 @@ class DashboardController < ApplicationController
       @end_of_week = selected_date.end_of_week(:monday)
 
       @costings = all_costings.select { |c| c.date && c.date >= @start_of_week && c.date <= @end_of_week }
-      @weekly_total = @costings.sum(&:amount)
 
       @weekly_costings = @costings.select { |c| c.date && c.date >= @start_of_week && c.date <= @end_of_week }
       @weekly_total = @weekly_costings.sum(&:amount)
