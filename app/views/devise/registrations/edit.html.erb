@@ -1,69 +1,74 @@
-<div class="w-2/5 bg-white rounded-lg shadow p-6 min-h-0 overflow-hidden">
-  <div class="h-full overflow-auto">
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="w-full max-w-5xl mx-auto bg-white rounded-lg shadow p-8">
+  <div class="h-full overflow-auto px-40">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Edit Details</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
-  <%= f.error_notification %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+        <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name, required: true, autofocus: true %>
+        <div class="form-inputs">
+          <%= f.input :name, required: true, autofocus: true %>
 
-    <%= f.input :email, required: true %>
+          <%= f.input :email, required: true %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <% end %>
 
-    <%= f.input :password,
-                hint: "Leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password,
+                      label: "New password",
+                      hint: "Leave it blank if you don't want to change it",
+                      required: false,
+                      input_html: { autocomplete: "new-password" } %>
 
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password_confirmation,
+                      label: "New password confirmation",
+                      required: false,
+                      input_html: { autocomplete: "new-password" } %>
 
-    <%= f.input :current_password,
-                hint: "We need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+          <%= f.input :current_password,
+                      hint: "We need your current password to confirm your changes",
+                      required: true,
+                      input_html: { autocomplete: "current-password" } %>
 
-    <% if resource.persisted? && resource.profile_picture.attached? %>
-      <h3 class="mt-4">Current Avatar:</h3>
-      <%= image_tag url_for(resource.profile_picture), alt: "Current Avatar", class: "w-16 h-16 rounded-full object-cover mb-4" %>
-    <% end %>
+          <% if resource.persisted? && resource.profile_picture.attached? %>
+            <h3 class="mb-2">Current Avatar:</h3>
+            <%= image_tag url_for(resource.profile_picture), alt: "Current Avatar", class: "w-16 h-16 rounded-full object-cover mb-4" %>
+          <% end %>
 
-    <h3>Choose a Default Avatar:</h3>
-    <div class="flex gap-4 mb-4">
-      <% ["default_avatar.png", "default_avatar_2.png", "default_avatar_3.png"].each do |filename| %>
-        <label class="cursor-pointer flex flex-col items-center">
-          <%= f.radio_button :default_avatar, filename, checked: (resource.default_avatar == filename) %>
-          <%= image_tag "avatars/#{filename}", class: "w-16 h-16 rounded-full object-cover border-2 #{resource.default_avatar == filename ? 'border-blue-500' : 'border-transparent'}" %>
-        </label>
-      <% end %>
-    </div>
 
-    <h3>Or Upload Your Own Picture:</h3>
-    <div class="mb-4">
-      <%= f.input :profile_picture, as: :file, label: false %>
-    </div>
-  </div>
+          <h3 class="mb-4">Choose a Default Avatar:</h3>
+          <div class="flex gap-4 mb-4">
+            <% ["default_avatar.png", "default_avatar_2.png", "default_avatar_3.png"].each do |filename| %>
+              <label class="cursor-pointer flex flex-col items-center">
+                <%= f.radio_button :default_avatar, filename, checked: (resource.default_avatar == filename) %>
+                <%= image_tag "avatars/#{filename}", class: "w-16 h-16 rounded-full object-cover border-2 #{resource.default_avatar == filename ? 'border-blue-500' : 'border-transparent'}" %>
+              </label>
+            <% end %>
+          </div>
 
-      <div class="form-actions mt-6">
-        <%= f.button :submit, "Update", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" %>
+
+
+          <h3 class="mb-2">Upload Your Own Picture:</h3>
+          <div class="mb-4">
+            <%= f.input :profile_picture, as: :file, label: false %>
+          </div>
+        </div>
+
+            <div class="form-actions mt-6">
+              <%= f.button :submit, "Update", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" %>
+            </div>
+          <% end %>
+
+          <div class="mt-8 border-t pt-4">
+            <div class="mb-4">
+              <%= button_to "Cancel my account", registration_path(resource_name),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" },
+                  class: "text-red-600 hover:underline" %>
+            </div>
+          </div>
+        </div>
       </div>
-    <% end %>
 
-    <div class="mt-8 border-t pt-4">
-      <div class="mb-4">
-        <%= button_to "Cancel my account", registration_path(resource_name),
-            method: :delete,
-            data: { confirm: "Are you sure?" },
-            class: "text-red-600 hover:underline" %>
-      </div>
-    </div>
   </div>
-</div>
-
-</div>
 </div>

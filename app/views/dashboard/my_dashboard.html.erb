@@ -1,3 +1,25 @@
+
+<% if current_user.household.nil? %>
+
+<div class="flex justify-center mt-80">
+  <div class="bg-white rounded-lg shadow p-6 w-full max-w-md text-center border-2 border-dashed border-blue-300">
+    
+    <p class="text-sm text-gray-600 mb-4">
+      You have no shared households. Create one below or wait for an invitation.
+    </p>
+
+    <turbo-frame id="household_modal_frame">
+      <%= link_to "Create", new_household_path,
+        data: { turbo_frame: "household_modal_frame" },
+        class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-medium" %>
+    </turbo-frame>
+
+  </div>
+</div>
+
+
+
+<% else %>
 <div class="flex gap-6 h-screen px-6 h-screen overflow-hidden">
   <!-- Left Card -->
   <div class="w-2/5 bg-white rounded-lg shadow p-6 min-h-0 overflow-hidden">
@@ -13,3 +35,4 @@
       <%= render partial: "costings/costings_list", locals: { costings: @costings } %>
     </div>
   </div>
+<% end %>

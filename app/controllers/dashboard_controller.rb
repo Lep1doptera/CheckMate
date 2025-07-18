@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
       @weekly_costings = @costings.select { |c| c.date && c.date >= @start_of_week && c.date <= @end_of_week }
       @weekly_total = @weekly_costings.sum(&:amount)
 
-      @chores = @household ? @household.chores.where(user_id: @user.id) : []
+      @chores = @household ? @household.chores.where(user_id: @user.id) : Chore.none
       @chore_status_data = [
         ['Complete', @chores.where(completed: true).count],
         ['Incomplete', @chores.where(completed: false).count]
