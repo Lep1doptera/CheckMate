@@ -12,24 +12,30 @@ class DashboardController < ApplicationController
       total
     end
 
-
     @chores = @household ? @household.chores.order(:date_to_be_completed) : []
-    if @household
-      @users = @household.users
+    @users = @household&.users || []
 
-      @overall_labels = ["Complete", "Incomplete"]
+    if @household
+      chores_this_week = @household.chores.where(date_to_be_completed: @start_of_week..@end_of_week)
+
+      @overall_labels = ["Completed", "Incomplete"]
       @overall_data = [
-        @household.chores.where(completed: true).count,
-        @household.chores.where(completed: false).count
+        chores_this_week.where(completed: true).count,
+        chores_this_week.where(completed: nil || false).count
       ]
 
       @user_labels = @users.map(&:name)
-      @user_data = @users.map { |user| user.chores.where(completed: true).count }
-    else
-      @overall_labels = []
-      @overall_data = []
-      @user_labels = []
-      @user_data = []
+      @user_data = @users.map do |user|
+        user.chores
+            .where(completed: true)
+            .where(completion_date: @start_of_week..@end_of_week)
+            .count
+      end
+      else
+        @overall_labels = []
+        @overall_data = []
+        @user_labels = []
+        @user_data = []
     end
   end
 
