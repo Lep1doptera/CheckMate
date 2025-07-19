@@ -10,10 +10,7 @@
     <%= javascript_importmap_tags %>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", media: "all" %>
-  </head>
-
-  <body class="bg-gray-100 min-h-screen">
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">  <body class="bg-gray-100 min-h-screen">
 
   <div data-controller="auth">
     <div id="auth-modal" data-auth-target="authModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
@@ -32,46 +29,67 @@
     </div>
   </div>
     <!-- Top Nav -->
-    <nav class="bg-blue-600 text-white px-5 py-3 flex items-center justify-between">
+    <nav class="bg-blue-600 text-white p-20 py-3 flex items-center justify-between">
 
-    <a href="/" class="text-2xl font-bold">CheckMate</a>
+    <% if user_signed_in? %>
+      <%= link_to "CheckMate", my_dashboard_path, class: "text-2xl", style: "font-family: 'Koulen', sans-serif" %>
+    <% else %>
+      <span class="text-2xl" style="font-family: 'Koulen', sans-serif">CheckMate</span>
+    <% end %>
+
     <div>
       <% unless user_signed_in? %>
         <button
           data-action="click->auth#openLogin"
           class="ml-4 bg-white text-blue-600 font-semibold px-4 py-2 rounded hover:bg-gray-100">
-          Sign In
+          Log In
         </button>
         <button
           data-action="click->auth#openSignup"
           class="ml-4 bg-white text-blue-600 font-semibold px-4 py-2 rounded hover:bg-gray-100">
-          Sign Up
+          Register
         </button>
       <% end %>
   </nav>
   </div>
-    <div class="flex min-h-screen p-6 items-center justify-center">
+
+
       <% if user_signed_in? %>
+    <div class="flex items-start">
         <!-- Side menu -->
-        <aside class="w-64 bg-white shadow h-screen p-5">
-          <nav class="space-y-6 text-blue-700">
-            <div class="flex flex-col items-center gap-3">
+      <aside class="w-64 bg-blue-600 p-5 sticky top-0 self-start h-screen">
+          <nav class="space-y-6">
+            <div class="flex flex-col items-center gap-3 pb-2">
               <%= image_tag current_user.avatar_url, alt: "User Avatar", class: "w-16 h-16 rounded-full object-cover" %>
-              <div class="w-full text-lg font-semibold text-center">
+              <div class="w-full font-semibold text-center text-white">
                 Welcome <%= current_user.name %>
               </div>
             </div>
 
             <% if current_user.household %>
-              <%= link_to "🏡 Household", dashboard_path, class: "block hover:underline" %>
+              <%= link_to "Household", dashboard_path,
+                class: "block px-4 py-3 rounded-md transition-transform duration-200 ease-in-out transform hover:translate-x-1 " +
+                (current_page?(dashboard_path) ? "bg-white text-black" : "text-gray-300 hover:text-white") %>
             <% end %>
 
-            <%= link_to "🙎‍♂️ My Dashboard", my_dashboard_path, class: "block hover:underline"%>
-            <%= link_to "👤 My Profile", edit_user_registration_path, class: "block hover:underline" %>
-            <%= link_to "📅 Calendar", calendar_path, class: "block hover:underline" %>
-            <%= link_to "🚪 Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "block hover:underline text-red-600" %>
+            <%= link_to "My Dashboard", my_dashboard_path,
+              class: "block px-4 py-3 rounded-md transition-transform duration-200 ease-in-out transform hover:translate-x-1 " +
+              (current_page?(my_dashboard_path) ? "bg-white text-black" : "text-gray-300 hover:text-white") %>
+
+            <%= link_to "My Profile", edit_user_registration_path,
+              class: "block px-4 py-3 rounded-md transition-transform duration-200 ease-in-out transform hover:translate-x-1 " +
+              (current_page?(edit_user_registration_path) ? "bg-white text-black" : "text-gray-300 hover:text-white") %>
+
+            <%= link_to "Calendar", calendar_path,
+              class: "block px-4 py-3 rounded-md transition-transform duration-200 ease-in-out transform hover:translate-x-1 " +
+              (current_page?(calendar_path) ? "bg-white text-black" : "text-gray-300 hover:text-white") %>
+
+            <%= link_to "Logout", destroy_user_session_path,
+              data: { turbo_method: :delete },
+              class: "block px-4 py-3 rounded-md transition-transform duration-200 ease-in-out transform hover:translate-x-1 text-red-300 hover:text-red-200" %>
           </nav>
-        </aside>
+      </aside>
+
 
         <!-- ✅ Main signed-in content -->
         <main class="flex-1 p-6">
@@ -81,7 +99,7 @@
 
     <% else %>
       <!-- ✅ Public content (not signed in) -->
-      <main class="flex min-h-screen p-6 items-center justify-center">
+      <main>
         <%= yield %> <!-- This will render landing.html.erb -->
       </main>
     <% end %>
