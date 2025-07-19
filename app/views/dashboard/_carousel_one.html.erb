@@ -2,8 +2,8 @@
      data-chart-labels-value="<%= labels.to_json %>"
      data-chart-data-value="<%= data.to_json %>"
      data-chart-chart-type-value="<%= chart_type || 'bar' %>"
-     class="max-h-[300px] w-[150px]">
-
+     class="max-h-[300px] w-[450px]">
+<strong><h1><%= @household.name %> progress</h1></strong>
   <canvas data-chart-target="canvas" class="w-full h-[300px]"></canvas>
 </div>
 

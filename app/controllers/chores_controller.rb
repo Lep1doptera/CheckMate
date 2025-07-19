@@ -43,7 +43,7 @@ class ChoresController < ApplicationController
         format.json { render json: @chore.errors, status: :unprocessable_entity }
       end
     end
-    redirect_to my_dashboard_path
+    # redirect_to dashboard_path
   end
 
   def destroy

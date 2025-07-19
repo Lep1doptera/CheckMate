@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = {
     labels: Array,
     data: Array,
-    chartType: String // ← make sure this is defined
+    chartType: String
   }
 
   connect() {
@@ -20,14 +20,14 @@ export default class extends Controller {
     }
 
     new Chart(ctx, {
-      type: this.hasChartTypeValue ? this.chartTypeValue : "bar", // ← use type dynamically
+      type: this.hasChartTypeValue ? this.chartTypeValue : "bar",
       data: {
         labels: this.labelsValue,
         datasets: [{
           label: "Chores",
           data: this.dataValue,
           backgroundColor: [
-            "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#6366f1", "#14b8a6"
+            "#06d6a0", "#ef476f", "#ffd166", "#118ab2", "#6366f1", "#073b4c"
           ],
         }]
       },
