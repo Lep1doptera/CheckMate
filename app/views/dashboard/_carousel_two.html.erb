@@ -1,37 +1,39 @@
-<div class="w-full h-64">
-  <canvas id="houseSpentChartCarousel" class="max-h-[300px] w-[150px]"></canvas>
+<div class="w-full h-64 relative">
+  <canvas id="houseSpentChartCarousel" class="w-full h-full"></canvas>
 </div>
+
 <% user_names = @household_users.map(&:name) %>
 <% user_data = @user_weekly_spending %>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  console.log("Loading Chart...");
+  document.addEventListener("turbo:load", () => {
+    const houseSpentCtx = document.getElementById('houseSpentChartCarousel');
+    if (!houseSpentCtx) return;
 
-  const houseSpentCtx = document.getElementById('houseSpentChartCarousel');
+    const userLabels = <%= raw(user_names.to_json) %>;
+    const userData = <%= raw(user_data.to_json) %>;
 
-  const userLabels = <%= raw(user_names.to_json) %>;
-  const userData = <%= raw(user_data.to_json) %>;
-
-  new Chart(houseSpentCtx, {
-    type: 'bar',
-    data: {
-      labels: userLabels,
-      datasets: [{
-        label: 'Total Spend',
-        data: userData,
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { beginAtZero: true }
+    new Chart(houseSpentCtx, {
+      type: 'bar',
+      data: {
+        labels: userLabels,
+        datasets: [{
+          label: 'Total Spend',
+          data: userData,
+          backgroundColor: 'rgba(2, 2, 249, 0.5)',
+          borderColor: 'rgb(0, 0, 0)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
-    }
+    });
   });
 </script>

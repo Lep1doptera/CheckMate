@@ -1,1 +1,7 @@
-<h1>Carousel four</h1>
+<h3 class="mt-6 text-xl font-semibold">Completed Chores</h3>
+<div data-controller="chores">
+    <% @chores.where(completed: true)
+              .where(completion_date: @start_of_week..@end_of_week).each do |chore| %>
+      <%= render partial: "chore", locals: { chore: chore } %>
+    <% end %>
+  </div>
