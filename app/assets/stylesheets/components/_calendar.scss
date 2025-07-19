@@ -1,0 +1,19 @@
+.simple-calendar {
+  table {
+    width: 100%;
+  }
+
+  th {
+    vertical-align: middle;
+    height: auto;
+  }
+
+  tbody tr {
+    vertical-align: top;
+    height: 150px;
+  }
+
+  .today {
+    background-color: #feffcd;
+  }
+}

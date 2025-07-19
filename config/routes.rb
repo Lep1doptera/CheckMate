@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'calendar/index'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
     }
@@ -14,6 +15,9 @@ Rails.application.routes.draw do
   get 'my_dashboard', to: 'dashboard#my_dashboard'
 
   resources :users, only: [:show, :index, :edit, :update]
+  resources :costings
+
+  get "calendar", to: "calendar#index", as: :calendar
 
 
   resources :households do
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
       delete 'remove_member/:user_id', to: 'households#remove_member', as: 'remove_member'
     end
   end
+
 
   resources :chores
 

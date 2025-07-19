@@ -1,0 +1,42 @@
+<div class="bg-gray-100 px-4">
+  <div class="w-full max-w-5xl mx-auto bg-white rounded-lg shadow p-8">
+    <h1 class="text-2xl font-semibold mb-6 text-center">Calendar</h1>
+
+<div class="flex items-center justify-between mb-4">
+  <div>
+    <%= link_to "⬅ Previous",
+        calendar_path(start_date: @start_date.prev_month.beginning_of_month),
+        class: "px-3 py-1 rounded border mr-2" %>
+
+    <%= link_to "Next ➡",
+        calendar_path(start_date: @start_date.next_month.beginning_of_month),
+        class: "px-3 py-1 rounded border" %>
+  </div>
+
+  <span class="text-xl font-semibold">
+    <%= @start_date.strftime("%B %Y") %>
+  </span>
+</div>
+
+<%= month_calendar events:     @chores,
+                   start_date: @start_date,
+                   attribute:  :date_to_be_completed do |date, chores| %>
+
+  <div class="font-medium"><%= date.day %></div>
+
+<% chores.each do |chore| %>
+  <% css =
+      if chore.completed?
+        "bg-green-300 line-through"
+      elsif chore.date_to_be_completed < Date.today
+        "bg-red-300"
+      else
+        "bg-blue-200"
+      end %>
+
+  <div class="mt-1 px-2 py-1 rounded text-xs <%= css %>">
+    <%= chore.name %>
+  </div>
+<% end %>
+
+<% end %>

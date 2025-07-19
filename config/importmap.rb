@@ -10,3 +10,4 @@ pin "@popperjs/core", to: "popper.js", preload: true
 pin "embla-carousel" # @8.6.0
 pin "chart.js/auto", to: "https://ga.jspm.io/npm:chart.js@4.5.0/auto/auto.js"
 pin "@kurkle/color", to: "@kurkle--color.js" # @0.3.4
+

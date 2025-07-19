@@ -29,6 +29,7 @@ class ChoresController < ApplicationController
     if @chore.update(chore_params_update)
       if chore_params_update.key?(:user_id)
         @chore.update(assigned: @chore.user_id.present?)
+        redirect_to dashboard_path
       end
 
       respond_to do |format|
@@ -46,7 +47,7 @@ class ChoresController < ApplicationController
 
   def destroy
     @chore.destroy
-    redirect_to chores_path, notice: "Chore deleted successfully."
+    redirect_to my_dashboard_path, notice: "Chore deleted successfully."
   end
 
   private
