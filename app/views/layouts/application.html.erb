@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>CheckMate</title>
+    <%= favicon_link_tag 'favicon.png' %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -29,7 +30,7 @@
     </div>
   </div>
     <!-- Top Nav -->
-    <nav class="bg-blue-600 text-white p-20 py-3 flex items-center justify-between">
+    <nav class="bg-blue-600 text-white px-4 py-3 sm:px-8 md:px-12 lg:px-16 xl:px-20 flex items-center justify-between">
 
     <% if user_signed_in? %>
       <%= link_to "CheckMate", my_dashboard_path, class: "text-2xl", style: "font-family: 'Koulen', sans-serif" %>
@@ -55,12 +56,12 @@
 
 
       <% if user_signed_in? %>
-    <div class="flex items-start">
+    <div class="flex flex-col md:flex-row items-start">
         <!-- Side menu -->
-      <aside class="w-64 bg-blue-600 p-5 sticky top-0 self-start h-screen">
+      <aside class="w-full md:w-64 bg-blue-600 p-5 sticky top-0 self-start md:h-screen">
           <nav class="space-y-6">
             <div class="flex flex-col items-center gap-3 pb-2">
-              <%= image_tag current_user.avatar_url, alt: "User Avatar", class: "w-16 h-16 rounded-full object-cover" %>
+              <%= image_tag current_user.avatar_url, alt: "User Avatar", class: "w-16 h-16 max-w-full rounded-full object-cover" %>
               <div class="w-full font-semibold text-center text-white">
                 Welcome <%= current_user.name %>
               </div>
@@ -92,7 +93,7 @@
 
 
         <!-- ✅ Main signed-in content -->
-        <main class="flex-1 p-6">
+        <main class="flex-1 px-4 py-6 sm:px-6 md:px-10">
           <%= yield %>
         </main>
       </div>

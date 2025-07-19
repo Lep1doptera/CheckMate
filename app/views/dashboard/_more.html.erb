@@ -1,16 +1,15 @@
   <div class="my-1">
-  <%= form_with url: dashboard_path, method: :get, local: true, class: "inline-block" do %>
-    <label for="week" class="block mb-1 text-sm font-medium text-gray-700">Select Week:</label>
-    <%= select_tag :week, options_for_select((0..4).map { |i|
-        date = Date.current.beginning_of_week(:monday) - i.weeks
-        [date.strftime("Week of %B %d, %Y"), date.to_s]
-      }, selected: @start_of_week.to_s),
-      onchange: "this.form.submit()",
-      class: "block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
-    %>
-  <% end %>
-</div>
-
+    <%= form_with url: dashboard_path, method: :get, local: true, class: "inline-block" do %>
+      <label for="week" class="block mb-1 text-sm font-medium text-gray-700">Select Week:</label>
+      <%= select_tag :week, options_for_select((0..4).map { |i|
+          date = Date.current.beginning_of_week(:monday) - i.weeks
+          [date.strftime("Week of %B %d, %Y"), date.to_s]
+        }, selected: @start_of_week.to_s),
+        onchange: "this.form.submit()",
+        class: "block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+      %>
+    <% end %>
+  </div>
   <div data-controller="embla" class="h-[400px] relative overflow-hidden">
   <!-- Viewport -->
   <div data-embla-target="viewport" class="h-full overflow-hidden">
