@@ -1,11 +1,9 @@
 class CostingsController < ApplicationController
   before_action :set_costing, only: [:edit, :update, :destroy]
-  before_action :authenticate_user! # assuming you have authentication
+  before_action :authenticate_user!
 
   def index
     @costings = current_user.costings.order(date: :desc)
-    # Or if you want to filter by household:
-    # @costings = Costing.where(household: current_user.household).order(date: :desc)
   end
 
   def new
@@ -14,7 +12,7 @@ class CostingsController < ApplicationController
 
   def create
     @costing = current_user.costings.build(costing_params)
-    @costing.household = current_user.household # assuming user belongs to household
+    @costing.household = current_user.household
 
     if @costing.save
       redirect_to my_dashboard_path, notice: 'Costing was successfully created.'
