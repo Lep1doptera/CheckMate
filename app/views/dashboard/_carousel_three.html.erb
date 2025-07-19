@@ -1,1 +1,7 @@
-<h1>Carousel three</h1>
+<div data-controller="chart"
+     data-chart-labels-value="<%= labels.to_json %>"
+     data-chart-data-value="<%= data.to_json %>"
+     data-chart-type-value="bar"
+     class="w-full h-full">
+  <canvas data-chart-target="canvas" class="w-full h-[300px]"></canvas>
+</div>
