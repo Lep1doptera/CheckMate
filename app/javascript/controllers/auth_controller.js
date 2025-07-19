@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="auth"
 export default class extends Controller {
-  connect() { console.log('hello')
+  connect() { console.log('Modal Controller Connected')
   }
   static targets = ["loginForm", "signupForm", "authModal"]
 

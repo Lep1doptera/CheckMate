@@ -1,1 +1,12 @@
-<h1>Carousel one</h1>
+<div data-controller="chart"
+     data-chart-labels-value="<%= labels.to_json %>"
+     data-chart-data-value="<%= data.to_json %>"
+     data-chart-chart-type-value="<%= chart_type || 'bar' %>"
+     class="max-h-[300px] w-[150px]">
+
+  <canvas data-chart-target="canvas" class="w-full h-[300px]"></canvas>
+</div>
+
+<!-- <div class="w-full h-64">
+  <canvas id="houseSpentChartCarousel" class="max-h-[300px] w-[150px]"></canvas>
+</div> -->

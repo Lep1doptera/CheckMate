@@ -3,9 +3,9 @@
   <div data-embla-target="viewport" class="h-full overflow-hidden">
     <div class="flex h-full">
     <% slides = [
-        { partial: "carousel_one", locals: { user: current_user } },
+        { partial: "carousel_one", locals: { labels: overall_labels, data: overall_data, chart_type: "doughnut" } },
         { partial: "carousel_two", locals: { user: current_user } },
-        { partial: "carousel_three", locals: { user: current_user } },
+        { partial: "carousel_three", locals: { labels: labels, data: data } },
         { partial: "carousel_four", locals: { user: current_user } }
       ] %>
       <!-- Slides -->
