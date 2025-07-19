@@ -8,4 +8,5 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 pin "pie_chart", to: "../app/javascript/pie_chart.js"
-pin "embla-carousel" # @8.6.0
+pin "embla-carousel"
+pin "chart.js", to: "https://cdn.jsdelivr.net/npm/chart.js"
