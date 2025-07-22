@@ -1,4 +1,4 @@
-<h3 class="mt-6 text-xl font-semibold">Completed Chores</h3>
+<strong><h1><%= @household.name %>'s completed chores</h1></strong>
 
   <div data-controller="chores">
       <% @chores.where(completed: true)
