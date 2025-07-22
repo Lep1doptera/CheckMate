@@ -1,3 +1,8 @@
+<% selected_date = Date.current
+      start_of_week = selected_date.beginning_of_week(:monday)
+      end_of_week = selected_date.end_of_week(:monday)
+%>
+
 <div class="flex flex-col gap-2 py-2 px-1">
 <h3 class="mt-4 text-xl font-semibold">Incomplete Chores</h3>
   <div id="incomplete_chores">
@@ -7,8 +12,9 @@
    </div>
 <h3 class="mt-6 text-xl font-semibold">Completed Chores</h3>
   <div id="completed_chores">
-  <% @chores.select(&:completed).each do |chore| %>
-    <%= render partial: "my_chore", locals: { chore: chore } %>
-  <% end %>
+    <% @chores.where(completed: true)
+              .where(completion_date: start_of_week..end_of_week).each do |chore| %>
+      <%= render partial: "my_chore", locals: { chore: chore } %>
+    <% end %>
   </div>
 </div>
