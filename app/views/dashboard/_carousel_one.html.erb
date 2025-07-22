@@ -1,10 +1,18 @@
 <div data-controller="chart"
-     data-chart-labels-value="<%= labels.to_json %>"
-     data-chart-data-value="<%= data.to_json %>"
-     data-chart-chart-type-value="<%= chart_type || 'bar' %>"
-     class="max-h-[300px] w-[450px]">
+    data-chart-labels-value="<%= labels.to_json %>"
+    data-chart-data-value="<%= data.to_json %>"
+    data-chart-chart-type-value="<%= chart_type || 'bar' %>"
+    class="max-h-[300px] w-[450px]">
+
+  <div data-chart-target="message"
+      class="absolute inset-0 flex items-center justify-center bg-white/70 backdrop-blur-sm z-10 hidden rounded-md">
+    <p class="text-green-700 font-bold text-xl text-center">
+      ✅ All chores completed!
+    </p>
+  </div>
+
 <strong><h1><%= @household.name %> progress</h1></strong>
-  <canvas data-chart-target="canvas" class="w-full h-[300px]"></canvas>
+  <canvas data-chart-target="canvas" class=""></canvas>
 </div>
 
 <!-- <div class="w-full h-64">

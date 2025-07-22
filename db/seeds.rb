@@ -12,6 +12,7 @@ require 'faker'
 puts "Cleaning Database"
 
 Chore.destroy_all
+Costing.destroy_all
 User.destroy_all
 Household.destroy_all
 
