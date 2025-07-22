@@ -16,13 +16,13 @@ class DashboardController < ApplicationController
     @users = @household&.users || []
 
     if @household
-      chores_this_week = @household.chores.where(date_to_be_completed: @start_of_week..@end_of_week)
-                                    .or(@household.chores.where(completion_date: @start_of_week..@end_of_week))
+      chores_this_week_to_be_completed = @household.chores.where(date_to_be_completed: @start_of_week..@end_of_week)
+      chores_this_week_been_completed = @household.chores.where(completion_date: @start_of_week..@end_of_week)
 
       @overall_labels = ["Completed", "Incomplete"]
       @overall_data = [
-        chores_this_week.where(completed: true).count,
-        chores_this_week.where(completed: nil || false).count
+        chores_this_week_been_completed.where(completed: true).count,
+        chores_this_week_to_be_completed.where(completed: [false, nil]).count
       ]
 
       @user_labels = @users.map(&:name)
