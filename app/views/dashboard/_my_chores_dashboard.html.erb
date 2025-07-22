@@ -14,7 +14,7 @@
   <div id="completed_chores">
     <% @chores.where(completed: true)
               .where(completion_date: start_of_week..end_of_week).each do |chore| %>
-      <%= render partial: "chore", locals: { chore: chore } %>
+      <%= render partial: "my_chore", locals: { chore: chore } %>
     <% end %>
   </div>
 </div>
