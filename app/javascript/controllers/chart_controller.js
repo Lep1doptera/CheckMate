@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { Chart } from "chart.js/auto"
 
 export default class extends Controller {
-  static targets = ["canvas"]
+  static targets = ["canvas","message"]
   static values = {
     labels: Array,
     data: Array,
@@ -46,5 +46,13 @@ export default class extends Controller {
         }
       }
     })
+    this.checkAllChoresCompleted()
   }
-}
+    checkAllChoresCompleted() {
+      const [completed, incomplete] = this.dataValue
+
+      if (incomplete === 0 && this.hasMessageTarget) {
+        this.messageTarget.classList.remove("hidden")
+      }
+    }
+  }
